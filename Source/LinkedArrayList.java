@@ -230,7 +230,8 @@ public class LinkedArrayList<E> implements List<E>
 
     private void ensureCapacity()
     {
-        if(nextLocalIndex == sectors.get(nextSector).length)
+        //if(nextLocalIndex == sectors.get(nextSector).length)
+        if(nextIndex == capacities.getLast())
         {
             newSector();
             nextLocalIndex = 0;
@@ -239,24 +240,10 @@ public class LinkedArrayList<E> implements List<E>
     
     private void newSector()
     {
-        /*
-        int l = sectors.size();
-        int size = 1;
-        for(int i = 0; i < l - 1; i++)
-        {
-            size *= 2;
-        }
-        sectors.add(new Object[size]);
-        */
-
-        //int size = sectors.size();
-        //int capacity = size == 1 ? 1 : sectors.get(size-1).length * 2;
-
-        //int size = sectors.size();
-        //int capacity = size == 1 ? 1 : capacities.get(size-1) * 2;
         int capacity = capacities.getLast();
         capacities.add(capacity*2);
-        sectors.add(new Object[capacity]);
+        //sectors.add(new Object[capacity]);
+        sectors.add(new Object[nextIndex]);
         nextSector++;
     }
 }

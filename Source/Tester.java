@@ -126,12 +126,12 @@ public class Tester
 	{
 		long time = 0;
 		int n = 20;
-		int n2 = 1_000_000;
+		int n2 = 2_000_000;
 		for(int i = 0; i < n; i++)
 		{
 			Random r = new Random(271+i);
-			long t1 = System.currentTimeMillis();
 			l.clear();
+			long t1 = System.currentTimeMillis();
 			for(int j = 0; j < n2; j++)
 			{
 				l.add(r.nextInt());
