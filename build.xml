@@ -1,0 +1,35 @@
+<project>
+	<target name = "clean">
+		<delete dir="Classes"/>
+		<delete dir="Documentation"/>
+	</target>
+
+	<target name = "compile">
+		<mkdir dir="Classes"/>
+		<javac includeantruntime="false" destdir="Classes" srcdir="Source"/>
+	</target>
+
+	<target name="docs">
+		<mkdir dir="Documentation"/>
+		<javadoc destdir = "Documentation">
+			<fileset dir="Source" includes="*.java"/>
+		</javadoc>
+	</target>
+
+	<target name="run">
+		<java classpath="Classes" classname="Tester"/>
+	</target>
+
+	<target name="nodocs">
+		<antcall target="clean"/>
+		<antcall target="compile"/>
+		<antcall target="run"/>
+	</target>
+
+	<target name="all">
+		<antcall target="clean"/>
+		<antcall target="compile"/>
+		<antcall target="docs"/>
+		<antcall target="run"/>
+	</target>
+</project>
