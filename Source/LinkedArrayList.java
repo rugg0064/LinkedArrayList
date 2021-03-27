@@ -108,12 +108,21 @@ public class LinkedArrayList<E> implements List<E>
 
     public int indexOf(Object o)
     {
-        return 0;
+        int tempIndex = 0;
+        while(tempIndex < nextIndex)
+        {
+            if( sectors.get(getSectorIndex(tempIndex))[getLocalIndex(tempIndex)].equals(o) )
+            {
+                return tempIndex;
+            }
+            tempIndex++;
+        }
+        return -1;
     }
 
     public boolean isEmpty()
     {
-        return false;
+        return nextIndex != 1;
     }
 
     public Iterator<E> iterator()
@@ -123,7 +132,7 @@ public class LinkedArrayList<E> implements List<E>
 
     public int lastIndexOf(Object o)
     {
-        return 9;
+        return -1;
     }
 
     public ListIterator<E> listIterator()
@@ -138,7 +147,17 @@ public class LinkedArrayList<E> implements List<E>
 
     public E remove(int index)
     {
-        return null;
+        E obj = (E) sectors.get(getSectorIndex(index))[getLocalIndex(index)];
+        int tempIndex = index;
+        while(tempIndex < nextIndex-1)
+        {
+            int nextTempIndex = tempIndex + 1;
+            sectors.get(getSectorIndex(tempIndex))[getLocalIndex(tempIndex)] = sectors.get(getSectorIndex(nextTempIndex))[getLocalIndex(nextTempIndex)];
+            tempIndex = nextTempIndex;
+        }
+        nextIndex--;
+        nextLocalIndex = getLocalIndex(nextIndex);
+        return obj;
     }
 
     public boolean remove(Object o)
@@ -242,7 +261,6 @@ public class LinkedArrayList<E> implements List<E>
     {
         int capacity = capacities.getLast();
         capacities.add(capacity*2);
-        //sectors.add(new Object[capacity]);
         sectors.add(new Object[nextIndex]);
         nextSector++;
     }
